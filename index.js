@@ -107,38 +107,41 @@ async function renderPrediction() {
       positionXLeftIris = prediction.annotations.leftEyeIris[0][0];
       positionYLeftIris = prediction.annotations.leftEyeIris[0][1];
 
-      const faceBottomLeft =
+      const faceBottomLeftX =
         video.width - prediction.boundingBox.bottomRight[0]; // face is flipped horizontally so bottom right is actually bottom left.
+      const faceBottomLeftY = prediction.boundingBox.bottomRight[1];
 
-      const faceTopRight = video.width - prediction.boundingBox.topLeft[0]; // face is flipped horizontally so top left is actually top right.
+      const faceTopRightX = video.width - prediction.boundingBox.topLeft[0]; // face is flipped horizontally so top left is actually top right.
+      const faceTopRightY = prediction.boundingBox.topLeft[1];
 
-      if (faceBottomLeft > 0) {
-        const faceWidth = faceTopRight - faceBottomLeft;
-
+      if (faceBottomLeftX > 0) {
+        const faceWidth = faceTopRightX - faceBottomLeftX;
         // When faceWidth is 200px, position left iris is between -3 / + 3
         // when faceWidth is 300px, position left iris is between -5 / + 5
+        const positionLeftIrisX = video.width - positionXLeftIris;
+        const normalizedXIrisPosition = normalize(
+          positionLeftIrisX,
+          faceTopRightX,
+          faceBottomLeftX
+        );
+        // if (normalizedXIrisPosition > 0.35) {
+        //   console.log("RIGHT");
+        // } else if (normalizedXIrisPosition < 0.31) {
+        //   console.log("LEFT");
+        // } else {
+        //   console.log("STRAIGHT");
+        // }
 
-        if (previousXPositionLeftIris !== positionXLeftIris) {
-          //   let difference = positionXLeftIris - previousXPositionLeftIris;
-          const position = video.width - positionXLeftIris;
-          const testIrisPosition = normalize(
-            position,
-            faceTopRight,
-            faceBottomLeft
-          );
-          if (testIrisPosition > 0.35) {
-            console.log("RIGHT");
-          } else if (testIrisPosition < 0.31) {
-            console.log("LEFT");
-          } else {
-            console.log("STRAIGHT");
-          }
-          //     if (difference > 0 && difference > 3) {
-          //       console.log("RIGHT");
-          //     } else if (difference < 0 && difference < -3) {
-          //       console.log("LEFT");
-          //     }
-          //   previousXPositionLeftIris = positionXLeftIris;
+        const normalizedYIrisPosition = normalize(
+          positionYLeftIris,
+          faceTopRightY,
+          faceBottomLeftY
+        );
+
+        if (normalizedYIrisPosition > 0.63) {
+          console.log("TOP");
+        } else if (normalizedYIrisPosition < 0.615) {
+          console.log("BOTTOM"); // meh doesn't reallyyyyy work
         }
       }
 
