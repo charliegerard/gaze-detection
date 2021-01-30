@@ -81,6 +81,33 @@ let previousYPositionLeftIris;
 const normalize = (val, max, min) =>
   Math.max(0, Math.min(1, (val - min) / (max - min)));
 
+const isFaceRotated = (landmarks) => {
+  const leftCheek = landmarks.leftCheek;
+  const rightCheek = landmarks.rightCheek;
+  const midwayBetweenEyes = landmarks.midwayBetweenEyes;
+
+  const xPositionLeftCheek = video.width - leftCheek[0][0];
+  const xPositionRightCheek = video.width - rightCheek[0][0];
+  const xPositionMidwayBetweenEyes = video.width - midwayBetweenEyes[0][0];
+
+  const widthLeftSideFace = xPositionMidwayBetweenEyes - xPositionLeftCheek;
+  const widthRightSideFace = xPositionRightCheek - xPositionMidwayBetweenEyes;
+
+  const difference = widthRightSideFace - widthLeftSideFace;
+
+  if (widthLeftSideFace < widthRightSideFace && Math.abs(difference) > 10) {
+    console.log("ROTATING FACE LEFT");
+    return true;
+  } else if (
+    widthLeftSideFace > widthRightSideFace &&
+    Math.abs(difference) > 10
+  ) {
+    console.log("ROTATING FACE RIGHT");
+    return true;
+  }
+  return false;
+};
+
 async function renderPrediction() {
   const predictions = await model.estimateFaces({
     input: video,
@@ -103,6 +130,8 @@ async function renderPrediction() {
   if (predictions.length > 0) {
     predictions.forEach((prediction) => {
       const keypoints = prediction.scaledMesh;
+
+      isFaceRotated(prediction.annotations);
 
       positionXLeftIris = prediction.annotations.leftEyeIris[0][0];
       positionYLeftIris = prediction.annotations.leftEyeIris[0][1];
@@ -139,9 +168,9 @@ async function renderPrediction() {
         );
 
         if (normalizedYIrisPosition > 0.63) {
-          console.log("TOP");
+          //   console.log("TOP");
         } else if (normalizedYIrisPosition < 0.615) {
-          console.log("BOTTOM"); // meh doesn't reallyyyyy work
+          //   console.log("BOTTOM"); // meh doesn't reallyyyyy work
         }
       }
 
