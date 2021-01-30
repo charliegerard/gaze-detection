@@ -78,6 +78,9 @@ let previousXPositionLeftIris;
 let positionYLeftIris;
 let previousYPositionLeftIris;
 
+const letterA = document.querySelector(".left");
+const letterB = document.querySelector(".right");
+
 const normalize = (val, max, min) =>
   Math.max(0, Math.min(1, (val - min) / (max - min)));
 
@@ -131,8 +134,6 @@ async function renderPrediction() {
     predictions.forEach((prediction) => {
       const keypoints = prediction.scaledMesh;
 
-      isFaceRotated(prediction.annotations);
-
       positionXLeftIris = prediction.annotations.leftEyeIris[0][0];
       positionYLeftIris = prediction.annotations.leftEyeIris[0][1];
 
@@ -143,7 +144,7 @@ async function renderPrediction() {
       const faceTopRightX = video.width - prediction.boundingBox.topLeft[0]; // face is flipped horizontally so top left is actually top right.
       const faceTopRightY = prediction.boundingBox.topLeft[1];
 
-      if (faceBottomLeftX > 0) {
+      if (faceBottomLeftX > 0 && !isFaceRotated(prediction.annotations)) {
         const faceWidth = faceTopRightX - faceBottomLeftX;
         // When faceWidth is 200px, position left iris is between -3 / + 3
         // when faceWidth is 300px, position left iris is between -5 / + 5
@@ -153,13 +154,17 @@ async function renderPrediction() {
           faceTopRightX,
           faceBottomLeftX
         );
-        // if (normalizedXIrisPosition > 0.35) {
-        //   console.log("RIGHT");
-        // } else if (normalizedXIrisPosition < 0.31) {
-        //   console.log("LEFT");
-        // } else {
-        //   console.log("STRAIGHT");
-        // }
+        if (normalizedXIrisPosition > 0.35) {
+          console.log("RIGHT");
+          letterB.style.backgroundColor = "pink";
+          letterA.style.backgroundColor = "black";
+        } else if (normalizedXIrisPosition < 0.31) {
+          console.log("LEFT");
+          letterA.style.backgroundColor = "pink";
+          letterB.style.backgroundColor = "black";
+        } else {
+          console.log("STRAIGHT");
+        }
 
         const normalizedYIrisPosition = normalize(
           positionYLeftIris,

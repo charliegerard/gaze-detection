@@ -1,0 +1,19 @@
+.canvas-wrapper {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.letters {
+  display: block;
+  margin: 0 auto;
+  padding: 2em;
+  background: black;
+}
+
+.left,
+.right {
+  color: white;
+  font-size: 4em;
+  display: inline-block;
+  width: 40%;
+}
