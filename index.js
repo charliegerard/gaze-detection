@@ -28,8 +28,7 @@ async function setupCamera(videoElement) {
 
 let positionXLeftIris;
 let positionYLeftIris;
-let previousXEvent;
-let xEvent;
+let event;
 
 const normalize = (val, max, min) =>
   Math.max(0, Math.min(1, (val - min) / (max - min)));
@@ -88,20 +87,13 @@ async function renderPrediction() {
         );
 
         if (normalizedXIrisPosition > 0.355) {
-          xEvent = "RIGHT";
-          //   if (previousXEvent !== xEvent) {
-          //     previousXEvent = xEvent;
-          //   }
+          event = "RIGHT";
         } else if (normalizedXIrisPosition < 0.315) {
-          xEvent = "LEFT";
-          //   if (previousXEvent !== xEvent) {
-          //     previousXEvent = xEvent;
-          //   }
+          event = "LEFT";
         } else {
           amountStraightEvents++;
           if (amountStraightEvents > 10) {
-            xEvent = "STRAIGHT";
-            // previousXEvent = xEvent;
+            event = "STRAIGHT";
             amountStraightEvents = 0;
           }
         }
@@ -113,18 +105,17 @@ async function renderPrediction() {
         );
 
         if (normalizedYIrisPosition > 0.63) {
-          //   console.log("TOP");
-        } else if (normalizedYIrisPosition < 0.615) {
-          //   console.log("BOTTOM"); // meh doesn't reallyyyyy work
-        } else {
-          // console.log('STRAIGHT')
+          event = "TOP";
         }
+        // else if (normalizedYIrisPosition < 0.615) {
+        //   console.log("BOTTOM"); // meh doesn't reallyyyyy work
+        // }
       }
     });
   }
 
   //   rafID = requestAnimationFrame(renderPrediction);
-  return xEvent;
+  return event;
 }
 
 async function main() {
