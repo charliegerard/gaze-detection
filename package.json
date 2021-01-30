@@ -1,9 +1,10 @@
 {
-  "name": "face_landmarks_detection_demo",
+  "name": "gaze",
   "version": "0.0.1",
-  "description": "",
+  "description": "Gaze",
   "main": "index.js",
   "license": "Apache-2.0",
+  "author": "Charlie Gerard <charlie.a.gerard@gmail.com>",
   "private": true,
   "engines": {
     "node": ">=8.9.0"
@@ -14,8 +15,7 @@
     "@tensorflow/tfjs-backend-webgl": "2.8.4",
     "@tensorflow/tfjs-backend-cpu": "2.8.4",
     "@tensorflow/tfjs-converter": "2.8.4",
-    "@tensorflow/tfjs-core": "2.8.4",
-    "stats.js": "^0.17.0"
+    "@tensorflow/tfjs-core": "2.8.4"
   },
   "scripts": {
     "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --target browser",

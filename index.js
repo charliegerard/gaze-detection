@@ -73,8 +73,13 @@ async function setupCamera() {
   });
 }
 
-let positionLeftIris;
-let previousPositionLeftIris;
+let positionXLeftIris;
+let previousXPositionLeftIris;
+let positionYLeftIris;
+let previousYPositionLeftIris;
+
+const normalize = (val, max, min) =>
+  Math.max(0, Math.min(1, (val - min) / (max - min)));
 
 async function renderPrediction() {
   const predictions = await model.estimateFaces({
@@ -98,17 +103,93 @@ async function renderPrediction() {
   if (predictions.length > 0) {
     predictions.forEach((prediction) => {
       const keypoints = prediction.scaledMesh;
-      //   console.log(prediction.annotations.leftEyeIris[0][0]);
-      positionLeftIris = prediction.annotations.leftEyeIris[0][0];
 
-      if (previousPositionLeftIris !== positionLeftIris) {
-        let difference = positionLeftIris - previousPositionLeftIris;
-        if (difference > 0 && difference > 2) {
-          console.log("RIGHT");
-        } else if (difference < 0 && difference < -2) {
-          console.log("LEFT");
+      positionXLeftIris = prediction.annotations.leftEyeIris[0][0];
+      positionYLeftIris = prediction.annotations.leftEyeIris[0][1];
+
+      const faceBottomLeft =
+        video.width - prediction.boundingBox.bottomRight[0]; // face is flipped horizontally so bottom right is actually bottom left.
+
+      const faceTopRight = video.width - prediction.boundingBox.topLeft[0]; // face is flipped horizontally so top left is actually top right.
+
+      if (faceBottomLeft > 0) {
+        const faceWidth = faceTopRight - faceBottomLeft;
+
+        // When faceWidth is 200px, position left iris is between -3 / + 3
+        // when faceWidth is 300px, position left iris is between -5 / + 5
+
+        if (previousXPositionLeftIris !== positionXLeftIris) {
+          //   let difference = positionXLeftIris - previousXPositionLeftIris;
+          const position = video.width - positionXLeftIris;
+          const testIrisPosition = normalize(
+            position,
+            faceTopRight,
+            faceBottomLeft
+          );
+          if (testIrisPosition > 0.35) {
+            console.log("RIGHT");
+          } else if (testIrisPosition < 0.31) {
+            console.log("LEFT");
+          } else {
+            console.log("STRAIGHT");
+          }
+          //     if (difference > 0 && difference > 3) {
+          //       console.log("RIGHT");
+          //     } else if (difference < 0 && difference < -3) {
+          //       console.log("LEFT");
+          //     }
+          //   previousXPositionLeftIris = positionXLeftIris;
         }
-        previousPositionLeftIris = positionLeftIris;
+      }
+
+      // Looking left/right
+      //   if (previousXPositionLeftIris !== positionXLeftIris) {
+      //     let difference = positionXLeftIris - previousXPositionLeftIris;
+      //     if (difference > 0 && difference > 3) {
+      //       console.log("RIGHT");
+      //     } else if (difference < 0 && difference < -3) {
+      //       console.log("LEFT");
+      //     }
+      //     previousXPositionLeftIris = positionXLeftIris;
+      //   }
+
+      // Looking top/down
+      //   if (previousYPositionLeftIris !== positionYLeftIris) {
+      //     let difference = positionYLeftIris - previousYPositionLeftIris;
+      //     if (difference > 0 && difference > 2) {
+      //       console.log("BOTTOM");
+      //     } else if (difference < 0 && difference < -2) {
+      //       console.log("TOP");
+      //     }
+      //     previousYPositionLeftIris = positionYLeftIris;
+      //   }
+
+      if (prediction.boundingBox.topLeft) {
+        ctx.fillStyle = GREEN;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.arc(
+          prediction.boundingBox.topLeft[0],
+          prediction.boundingBox.topLeft[1],
+          10 /* radius */,
+          0,
+          2 * Math.PI
+        );
+        ctx.fill();
+      }
+
+      if (prediction.boundingBox.bottomRight) {
+        ctx.fillStyle = RED;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.arc(
+          prediction.boundingBox.bottomRight[0],
+          prediction.boundingBox.bottomRight[1],
+          10 /* radius */,
+          0,
+          2 * Math.PI
+        );
+        ctx.fill();
       }
 
       if (state.triangulateMesh) {
