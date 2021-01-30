@@ -1,0 +1,62 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gaze-controlled keyboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/build/three.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Demo - Gaze keyboard</h1>
+    <main>
+      <div id="main">
+        <video
+          id="video"
+          playsinline
+          style="
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            visibility: hidden;
+            width: auto;
+            height: auto;
+            display: none;
+          "
+        ></video>
+        <section class="keyboard">
+          <input
+            class="output"
+            placeholder="Type a message with your eyes..."
+          />
+          <section class="letters">
+            <section class="section-left"></section>
+            <section class="section-right"></section>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      Made by
+      <a
+        href="https://charliegerard.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Charlie Gerard</a
+      >
+      -
+      <a
+        href="https://twitter.com/devdevcharlie"
+        target="_blank"
+        rel="noopener noreferrer"
+        >@devdevcharlie</a
+      >
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

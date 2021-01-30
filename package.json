@@ -1,9 +1,9 @@
 {
-  "name": "gaze",
+  "name": "Gaze keyboard",
   "version": "0.0.1",
-  "description": "Gaze",
+  "description": "Gaze detection to write with your eyes",
   "main": "index.js",
-  "license": "Apache-2.0",
+  "license": "GNU",
   "author": "Charlie Gerard <charlie.a.gerard@gmail.com>",
   "private": true,
   "engines": {
@@ -19,8 +19,8 @@
   },
   "scripts": {
     "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --target browser",
+    "watch:demo": "cross-env NODE_ENV=development parcel demos/keyboard/index.html --no-hmr --target browser",
     "build": "cross-env NODE_ENV=production parcel build index.html --target browser --public-url ./",
-    "lint": "eslint .",
     "link-local": "yalc link @tensorflow-models/face-landmarks-detection"
   },
   "browser": {
@@ -40,11 +40,6 @@
     "yalc": "~1.0.0-pre.27"
   },
   "eslintConfig": {
-    "extends": "google",
-    "rules": {
-      "require-jsdoc": 0,
-      "valid-jsdoc": 0
-    },
     "env": {
       "es6": true
     },
