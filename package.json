@@ -1,5 +1,5 @@
 {
-  "name": "Gaze keyboard",
+  "name": "gaze-keyboard",
   "version": "0.0.1",
   "description": "Gaze detection to write with your eyes",
   "main": "index.js",
