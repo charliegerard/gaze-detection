@@ -20,7 +20,7 @@
   "scripts": {
     "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --target browser",
     "watch:demo": "cross-env NODE_ENV=development parcel demos/keyboard/index.html --no-hmr --target browser",
-    "build": "cross-env NODE_ENV=production parcel build index.html --target browser --public-url ./",
+    "build": "cross-env NODE_ENV=production parcel build demos/keyboard/index.html --target browser --public-url ./",
     "link-local": "yalc link @tensorflow-models/face-landmarks-detection"
   },
   "browser": {
