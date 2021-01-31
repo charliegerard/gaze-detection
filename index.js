@@ -132,7 +132,6 @@ const gaze = {
   setInputVideo: setupCamera,
   loadModel: main,
   getGazePrediction: renderPrediction,
-  stop: stopDetection,
 };
 
 module.exports = gaze;
