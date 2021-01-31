@@ -4,17 +4,17 @@ Use machine learning in JavaScript to detect eye movements and build gaze-contro
 
 ## Demo
 
-Visit [https://gaze-keyboard.netlify.app/](https://gaze-keyboard.netlify.app/) (You can try it on mobile too!!)
+Visit [https://gaze-keyboard.netlify.app/](https://gaze-keyboard.netlify.app/) _(Works well on mobile too!!)_ 😃
 
 ![](gaze-demo.gif)
 
-Inspired by the Android application "Look to speak".
+_Inspired by the Android application ["Look to speak"](https://play.google.com/store/apps/details?id=com.androidexperiments.looktospeak)._
 
-Uses Tensorflow.js's [face landmark detection model](https://www.npmjs.com/package/@tensorflow-models/face-landmarks-detection)
+Uses Tensorflow.js's [face landmark detection model](https://www.npmjs.com/package/@tensorflow-models/face-landmarks-detection).
 
 ## Detection
 
-This util detects when the user looks right, left, up and straight forward.
+This tool detects when the user looks right, left, up and straight forward.
 
 ## How to use
 
@@ -28,7 +28,7 @@ npm install gaze-detection --save
 
 ### Code sample
 
-If used as a npm module, start by importing it:
+Start by importing it:
 
 ```js
 import gaze from "gaze-detection";
@@ -59,7 +59,16 @@ Run the predictions:
 const predict = async () => {
   const gazePrediction = await gaze.getGazePrediction();
   console.log("Gaze direction: ", gazePrediction); //will return 'RIGHT', 'LEFT', 'STRAIGHT' or 'TOP'
+  if (gazePrediction === "RIGHT") {
+    // do something when the user looks to the right
+  }
   let raf = requestAnimationFrame(predict);
 };
 predict();
+```
+
+Stop the detection:
+
+```js
+cancelAnimationFrame(raf);
 ```
