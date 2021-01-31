@@ -99,13 +99,48 @@ main {
 }
 
 .credit {
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .letters {
   display: grid;
   grid-template-columns: 50% 50%;
   text-align: center;
+}
+
+.model-status {
+  color: lightgray;
+  animation: blink 1.5s ease-in-out infinite;
+  margin: 0;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 1s ease-in-out forwards;
+  color: lightgray;
+  margin: 0;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    display: block;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
 }
 
 /* Tablet Landscape */

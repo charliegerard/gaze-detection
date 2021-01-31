@@ -2,8 +2,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gaze-controlled keyboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.106.2/build/three.min.js"></script>
+    <meta property="og:title" content="Gaze-controlled keyboard" />
+    <meta
+      property="og:description"
+      content="Write words using your eye movements. Built with Tensorflow.js"
+    />
+    <meta
+      property="og:image"
+      content="https://res.cloudinary.com/devdevcharlie/image/upload/v1612097762/gaze-home_c9jkcp.png"
+    />
+    <meta property="og:url" content="https://gaze-keyboard.netlify.app" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <title>Gaze-controlled keyboard - by Charlie Gerard</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap"
@@ -66,6 +77,7 @@
         Look left or right to filter down the letter/command you would like to
         select.
       </p>
+      <p class="model-status">Machine learning model loading...</p>
     </section>
 
     <main>
@@ -94,8 +106,6 @@
         </section>
       </div>
     </main>
-
-    <!-- <script src="index.js"></script> -->
-    <script src="index2.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
