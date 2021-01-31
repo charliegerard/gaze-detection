@@ -1,6 +1,6 @@
 {
   "name": "gaze-detection",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Detect the user's gaze direction using machine learning, to control interfaces",
   "main": "index.js",
   "license": "GNU",
