@@ -4,7 +4,7 @@
   "description": "Detect the user's gaze direction using machine learning, to control interfaces",
   "main": "index.js",
   "license": "GNU",
-  "author": "Charlie Gerard <charlie.a.gerard@gmail.com>",
+  "author": "Charlie Gerard <charlie.a.gerard@gmail.com> (https://charliegerard.dev)",
   "engines": {
     "node": ">=8.9.0"
   },

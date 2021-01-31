@@ -107,14 +107,9 @@ async function renderPrediction() {
         if (normalizedYIrisPosition > 0.63) {
           event = "TOP";
         }
-        // else if (normalizedYIrisPosition < 0.615) {
-        //   console.log("BOTTOM"); // meh doesn't reallyyyyy work
-        // }
       }
     });
   }
-
-  //   rafID = requestAnimationFrame(renderPrediction);
   return event;
 }
 
@@ -132,8 +127,6 @@ async function main() {
     { maxFaces: 1 }
   );
 }
-
-const stopDetection = () => cancelAnimationFrame(rafID);
 
 const gaze = {
   setInputVideo: setupCamera,
