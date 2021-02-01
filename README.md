@@ -1,4 +1,4 @@
-# Gaze-detection - Detect gaze direction in JavaScript using Tensorflow.js
+# Gaze-detection
 
 Use machine learning in JavaScript to detect eye movements and build gaze-controlled experiences!
 
@@ -20,37 +20,51 @@ This tool detects when the user looks right, left, up and straight forward.
 
 ### Install
 
-As a npm module:
+As a module:
 
 ```bash
 npm install gaze-detection --save
 ```
 
+or using a CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/gaze-detection@1.1.0/dist/index.min.js"></script>
+```
+
 ### Code sample
 
-Start by importing it:
+If imported as a module, start by importing it:
 
 ```js
 import gaze from "gaze-detection";
 ```
 
-The module needs a webcam feed to run the detection:
+Load the machine learning model:
+
+```js
+await gaze.loadModel();
+```
+
+Then, set up the camera feed needed for the detection. The `setUpCamera` method needs a `video` HTML element and, optionally, a camera device ID if you are using more than the default webcam.
 
 ```js
 const videoElement = document.querySelector("video");
 
 const init = async () => {
-  // set up webcam feed
-  await gaze.setInputVideo(videoElement);
+  // Using the default webcam
+  await gaze.setUpCamera(videoElement);
+
+  // Or, using more camera input devices
+  const mediaDevices = await navigator.mediaDevices.enumerateDevices();
+  const camera = mediaDevices.find(
+    (device) =>
+      device.kind === "videoinput" &&
+      device.label.includes(/* The label from the list of available devices*/)
+  );
+
+  await gaze.setUpCamera(videoElement, camera.deviceId);
 };
-
-init();
-```
-
-Once the video stream is set up, load the model:
-
-```js
-await gaze.loadModel();
 ```
 
 Run the predictions:

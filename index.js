@@ -2,30 +2,9 @@ import * as faceLandmarksDetection from "@tensorflow-models/face-landmarks-detec
 import * as tf from "@tensorflow/tfjs-core";
 import "@tensorflow/tfjs-backend-webgl";
 
-let model, videoWidth, videoHeight, video, rafID;
+let model, video, rafID;
 let amountStraightEvents = 0;
 const VIDEO_SIZE = 500;
-
-async function setupCamera(videoElement) {
-  video = videoElement;
-
-  const stream = await navigator.mediaDevices.getUserMedia({
-    audio: false,
-    video: {
-      facingMode: "user",
-      width: VIDEO_SIZE,
-      height: VIDEO_SIZE,
-    },
-  });
-  video.srcObject = stream;
-
-  return new Promise((resolve) => {
-    video.onloadedmetadata = () => {
-      resolve(video);
-    };
-  });
-}
-
 let positionXLeftIris;
 let positionYLeftIris;
 let event;
@@ -113,24 +92,51 @@ async function renderPrediction() {
   return event;
 }
 
-async function main() {
+const loadModel = async () => {
   await tf.setBackend("webgl");
-
-  video.play();
-  videoWidth = video.videoWidth;
-  videoHeight = video.videoHeight;
-  video.width = videoWidth;
-  video.height = videoHeight;
 
   model = await faceLandmarksDetection.load(
     faceLandmarksDetection.SupportedPackages.mediapipeFacemesh,
     { maxFaces: 1 }
   );
-}
+};
+
+const setUpCamera = async (videoElement, webcamId = undefined) => {
+  video = videoElement;
+  const mediaDevices = await navigator.mediaDevices.enumerateDevices();
+
+  const defaultWebcam = mediaDevices.find(
+    (device) =>
+      device.kind === "videoinput" && device.label.includes("Built-in")
+  );
+
+  const cameraId = defaultWebcam ? defaultWebcam.deviceId : webcamId;
+
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: {
+      facingMode: "user",
+      deviceId: cameraId,
+      width: VIDEO_SIZE,
+      height: VIDEO_SIZE,
+    },
+  });
+
+  video.srcObject = stream;
+  video.play();
+  video.width = 500;
+  video.height = 500;
+
+  return new Promise((resolve) => {
+    video.onloadedmetadata = () => {
+      resolve(video);
+    };
+  });
+};
 
 const gaze = {
-  setInputVideo: setupCamera,
-  loadModel: main,
+  loadModel: loadModel,
+  setUpCamera: setUpCamera,
   getGazePrediction: renderPrediction,
 };
 

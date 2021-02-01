@@ -1,7 +1,6 @@
 import gaze from "../../index.js";
 import { initialLetters } from "../utils";
 
-const videoElement = document.querySelector("video");
 let letters = initialLetters;
 const leftSection = document.querySelector(".section-left");
 const rightSection = document.querySelector(".section-right");
@@ -56,9 +55,11 @@ const updateModelStatus = () => {
   }
 };
 
+const videoElement = document.querySelector("video");
+
 const init = async () => {
-  await gaze.setInputVideo(videoElement);
   await gaze.loadModel();
+  await gaze.setUpCamera(videoElement);
 
   const predict = async () => {
     let direction = await gaze.getGazePrediction();
