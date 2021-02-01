@@ -1,8 +1,8 @@
 {
   "name": "gaze-detection",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Detect the user's gaze direction using machine learning, to control interfaces",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "GNU",
   "author": "Charlie Gerard <charlie.a.gerard@gmail.com> (https://charliegerard.dev)",
   "engines": {
@@ -17,7 +17,7 @@
   "scripts": {
     "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --target browser",
     "watch:demo": "cross-env NODE_ENV=development parcel demo/keyboard/index.html --no-hmr --target browser",
-    "build": "cross-env NODE_ENV=production parcel build demo/keyboard/index.html --target browser --public-url ./"
+    "build": "cross-env NODE_ENV=production parcel build index.js --target browser --public-url ./"
   },
   "browser": {
     "crypto": false
@@ -49,6 +49,7 @@
       "sourceType": "module"
     }
   },
+  "type": "module",
   "eslintIgnore": [
     "dist/"
   ]

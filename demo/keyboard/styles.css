@@ -66,6 +66,7 @@ main {
   text-align: center;
   border-radius: 5px 5px 0 0;
   font-size: 20px;
+  font-family: "Roboto", sans-serif;
 }
 
 .info {

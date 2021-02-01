@@ -20,7 +20,7 @@ const initKeyboardUI = (lettersSelected, update) => {
     } else if (lettersSelected[0] === "space") {
       outputElement.value += " ";
     } else if (lettersSelected[0] === "Enter") {
-      outputElement.value += "</br>";
+      outputElement.value = `${outputElement.value}\n`;
     } else {
       outputElement.value += lettersSelected[0];
     }
@@ -49,9 +49,11 @@ let previousGazeDirection;
 
 const updateModelStatus = () => {
   const status = document.querySelector(".model-status");
-  status.innerHTML = "Model loaded! You can start!";
-  status.classList.add("fade-out");
-  status.classList.remove("model-status");
+  if (status) {
+    status.innerHTML = "Model loaded! You can start!";
+    status.classList.add("fade-out");
+    status.classList.remove("model-status");
+  }
 };
 
 const init = async () => {
