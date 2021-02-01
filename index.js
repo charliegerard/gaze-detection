@@ -140,4 +140,4 @@ const gaze = {
   getGazePrediction: renderPrediction,
 };
 
-module.exports = gaze;
+export default gaze;
