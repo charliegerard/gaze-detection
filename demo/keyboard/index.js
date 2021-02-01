@@ -1,4 +1,4 @@
-import gaze from "gaze-detection";
+import gaze from "../../index.js";
 import { initialLetters } from "./utils.js";
 
 let letters = initialLetters;
