@@ -1,5 +1,5 @@
-import gaze from "../../index.js";
-import { initialLetters } from "../utils";
+import gaze from "gaze-detection";
+import { initialLetters } from "./utils.js";
 
 let letters = initialLetters;
 const leftSection = document.querySelector(".section-left");

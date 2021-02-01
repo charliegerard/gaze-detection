@@ -29,7 +29,7 @@ npm install gaze-detection --save
 or using a CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/gaze-detection@1.1.0/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gaze-detection/dist/index.min.js"></script>
 ```
 
 ### Code sample
