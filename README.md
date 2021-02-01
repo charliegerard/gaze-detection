@@ -26,15 +26,9 @@ As a module:
 npm install gaze-detection --save
 ```
 
-or using a CDN:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/gaze-detection/dist/index.min.js"></script>
-```
-
 ### Code sample
 
-If imported as a module, start by importing it:
+Start by importing it:
 
 ```js
 import gaze from "gaze-detection";
