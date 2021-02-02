@@ -71,7 +71,7 @@ async function renderPrediction() {
           event = "LEFT";
         } else {
           amountStraightEvents++;
-          if (amountStraightEvents > 10) {
+          if (amountStraightEvents > 8) {
             event = "STRAIGHT";
             amountStraightEvents = 0;
           }
@@ -83,7 +83,7 @@ async function renderPrediction() {
           faceBottomLeftY
         );
 
-        if (normalizedYIrisPosition > 0.63) {
+        if (normalizedYIrisPosition > 0.62) {
           event = "TOP";
         }
       }
