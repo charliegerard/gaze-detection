@@ -1,6 +1,6 @@
 {
   "name": "gaze-detection",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Detect the user's gaze direction using machine learning, to control interfaces",
   "main": "dist/index.js",
   "license": "GNU",
@@ -28,7 +28,8 @@
     "machine learning",
     "tensorflow.js",
     "creative coding",
-    "tensorflow"
+    "tensorflow",
+    "javascript"
   ],
   "devDependencies": {
     "@babel/core": "7.7.5",
@@ -40,6 +41,10 @@
     "cross-env": "^5.2.0",
     "eslint": "^4.19.1",
     "parcel-bundler": "^1.12.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charliegerard/gaze-detection.git"
   },
   "eslintConfig": {
     "env": {
