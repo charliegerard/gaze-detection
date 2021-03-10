@@ -53,6 +53,5 @@ export const normalize = (val, max, min) =>
   Math.max(0, Math.min(1, (val - min) / (max - min)));
 
 export const isEven = (value) => {
-  if (value % 2 == 0) return true;
-  else return false;
+  return value % 2 == 0;
 };
